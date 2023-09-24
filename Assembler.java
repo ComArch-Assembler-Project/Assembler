@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 public class Assembler {
 
+    /** Important **/
+    private static final String zero_bit = "0000000"; // 31-25 (7 bit)
+
     private static final Map<String , String> Opcode_mapping = Map.of(
             "add"  , "000",
             "nand" , "001",
@@ -37,4 +40,6 @@ public class Assembler {
             "noop" , 0,
             ".fill", 0
     );
+
+
 }
