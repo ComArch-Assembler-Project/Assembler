@@ -5,14 +5,15 @@
   - [ ] I-type
   - [ ] J-type
   - [ ] O-type
-    > [!IMPORTANT]
-    > R-type instructions (add, nand)
-    >
-    > - Bits 24-22 opcode
-    > - Bits 21-19 reg A (rs)
-    > - Bits 18-16 reg B (rt)
-    > - Bits 15-3 ไม่ใช้ (ควรตั้งไว้ที่ 0)
-    > - Bits 2-0 destReg (rd)
+ 
+> [!IMPORTANT]
+> R-type instructions (add, nand)
+>
+> - Bits 24-22 opcode
+> - Bits 21-19 reg A (rs)
+> - Bits 18-16 reg B (rt)
+> - Bits 15-3 ไม่ใช้ (ควรตั้งไว้ที่ 0)
+> - Bits 2-0 destReg (rd)
 
 > [!IMPORTANT]
 > I-type instructions (lw, sw, beq)
