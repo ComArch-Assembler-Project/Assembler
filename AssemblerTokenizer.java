@@ -1,11 +1,11 @@
 import java.util.StringTokenizer;
 public class AssemblerTokenizer implements Tokenizer {
     StringTokenizer start_token;
-    StringTokenizer reset_token;
+    StringTokenizer repostion_token;
 
     AssemblerTokenizer(String Assembly){
         start_token = new StringTokenizer(Assembly , " \t");
-        reset_token = new StringTokenizer(Assembly , " \t");
+        repostion_token = new StringTokenizer(Assembly , " \t");
     }
 
     @Override
@@ -19,7 +19,7 @@ public class AssemblerTokenizer implements Tokenizer {
     }
 
     @Override
-    public void resetStartPointer() {
-        start_token = reset_token;
+    public void repositionToStart() {
+        start_token = repostion_token;
     }
 }
