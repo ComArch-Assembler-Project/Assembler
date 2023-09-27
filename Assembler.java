@@ -148,7 +148,7 @@ public class Assembler {
                  *  Convert to binary
                  */
                 fields[i] = toBinaryString(integerFields); // import lib
-                fields[i] = fillBits(fields[i], 3);
+                fields[i] = addZeroBits(fields[i], 3);
             }
 
             /**
@@ -192,9 +192,9 @@ public class Assembler {
         // not-implement yet
     }
 
-    public static String fillBits(String field, int i) {
+    public static String addZeroBits(String field, int size) {
         StringBuilder sb = new StringBuilder();
-        while (sb.length() + field.length() < i) {
+        while (sb.length() + field.length() < size) {
             sb.append("0");
         }
         sb.append(field);
