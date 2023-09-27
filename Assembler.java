@@ -54,7 +54,7 @@ public class Assembler {
     );
 
     /** Parser **/
-    private void parseToData(){
+    private void parseLineToData(){
         Data_list = new ArrayList<>();
 
         while (tkz.hasNext()) { // parse to data until newline
@@ -79,5 +79,29 @@ public class Assembler {
         return Instruction_mapping.containsKey(tkz);
     }
 
+    private void machineCode_Encoder(){
+        parseLineToData();
+        LabelCheck();
+        System.out.println(Label_Mapping);
 
+    }
+
+    private void LabelCheck(){
+        // check Label
+        while(tkz.hasNext()){
+            if(Data_list.isEmpty()){
+                parseLineToData();
+                continue;
+            }
+
+            if(!isInstruction(Data_list.get(0))){
+                Label_Mapping.put(Data_list.get(0) , curr_Line);
+            } else {
+                System.out.println("error label is missing");
+            }
+
+            curr_Line++;
+            parseLineToData();
+        }
+    }
 }
