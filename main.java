@@ -1,7 +1,11 @@
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
+
 public class main {
 
-    static String inputDIR = "Input/";
+    static String INPUT_DIR = "Input/";
     static String fileExtension = ".s";
     static String OUTPUT_DIR = "Output/";
 
@@ -12,23 +16,54 @@ public class main {
     static String[] outExtension = {
             ".bin",".txt"
     };
-    public static void main(String[] args) throws Exception {
-        compute("R_TYPE");
-        print("R_TYPE");
+
+    static String[] inputFile = {
+            "TEST" , "TEST1"
+    };
+    public static void main(String[] args) {
+        System.out.print("Select Files [ " + Arrays.toString(inputFile) + " ] (1-"+ inputFile.length + ") : " );
+        Scanner input = new Scanner(System.in);
+        int i = Integer.parseInt(input.nextLine()) - 1;
+
+        printAssembly(inputFile[i]);
+
+        System.out.print("Press Enter to compute to machine code : ");
+        input.nextLine();
+
+        // main function !!!
+        compute(inputFile[i]);
+
+        // show output
+        print(inputFile[i] , outExtension[0]);
+        print(inputFile[i] , outExtension[1]);
     }
     public static void compute(String File){
         Assembler Encoder = new Assembler(
-                FileOperator.FileToString(inputDIR + File + fileExtension)
+                FileOperator.FileToString(INPUT_DIR + File + fileExtension)
         );
 
-        List<String> machineCodes = Encoder.computeToMachineCode();
-        FileOperator.StringToFile(OUTPUT_DIR + File + outExtension[0], machineCodes);
+        List<String> binaryCodes = Encoder.computeToMachineCode();
+        List<String> decimalCodes = Assembler.binaryToDecimal(binaryCodes);
+
+        FileOperator.StringToFile(OUTPUT_DIR + File + outExtension[0], binaryCodes);
+        FileOperator.StringToFile(OUTPUT_DIR + File + outExtension[1],  decimalCodes);
     }
 
-    public static void print(String File){
-        String Input = OUTPUT_DIR + File + outExtension[0];
+    public static void print(String File , String fileExtension){
+        String Input = OUTPUT_DIR + File + fileExtension;
         System.out.println("\n");
-        System.out.println("Print : " + Input);
+        if(Objects.equals(fileExtension, outExtension[1])){
+            System.out.println("print in DecimalCode -> " + Input);
+        } else if(Objects.equals(fileExtension, outExtension[0])){
+            System.out.println("print in BinaryCode -> " + Input);
+        }
+        System.out.println(" " + FileOperator.FileToString(Input));
+    }
+
+    public static void printAssembly(String File){
+        String Input = INPUT_DIR + File + fileExtension;
+        System.out.println("\n");
+        System.out.println("Print : " + Input + "\n");
         System.out.println(" " + FileOperator.FileToString(Input));
     }
 }

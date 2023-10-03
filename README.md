@@ -2,8 +2,8 @@
 
 ### status
   - [x] R-type
-  - [ ] I-type
-  - [ ] J-type
+  - [x] I-type
+  - [x] J-type
   - [x] O-type
  
 > [!IMPORTANT]
@@ -37,18 +37,27 @@
 > - Bits 24-22 opcode
 > - Bits 21-0 ไม่ใช้ (ควรตั้งไว้ที่ 0)
 
-### Parser
+### Parser-Assembler
 
-Format : label instruction field0 field1 field2 comments
+parseLineToData() -> parse line by line to Data-list
+
+Format : label instruction field[0] field[1] field[2] comments
 
 - R-type : add , nand 
   - regA regB destReg -> (3 fields)
+  - List of machineCodes = field[0] + field[1] + 0000000000000 (13-bits) + field[2]
 - I-type : lw , sw , beq
-  - regA regB         -> (2 fields)
+  - regA regB         -> (2 fields with 1 offsetField)
+    - List of machineCodes = field[0] + field[1] + offsetField(16-bits)
+      - field[2] is address
+      - lw , sw -> offsetField = field[2]
+      - beq -> offsetField = field[2] - PC - 1
 - J-type : jalr
   - regA regB         -> (2 fields)
+  - List of machineCodes = regA + regB + 0000000000000000 (16-bits)
 - O-type : halt , noop
   - no field          -> (0 field)
+  - List of machineCodes = 0000000000000000000000 (22-bits)
 
 ### Opcode table foreach type
 
@@ -62,3 +71,32 @@ Format : label instruction field0 field1 field2 comments
 | jalr (J-type format)                    | 101                               | เก็บค่า PC+1 ไว้ใน regB ซึ่ง PC คือ address ของ jalr instruction และกระโดดไปที่ address ที่ถูกเก็บไว้ใน regA แต่ถ้า regA และ regB คือ register ตัวเดียวกัน ให้เก็บ PC+1 ก่อน และค่อยกระโดดไปที่ PC+1 |
 | bhalt (O-type format)                   | 110                               | เพิ่มค่า PC เหมือน instructions อื่นๆ และ halt เครื่อง นั่นคือให้ simulator รู้ว่าเครื่องมีการ halted เกิดขึ้น                                                                                       |
 | noop (O-type format)                    | 111                               | ไม่ทำอะไรเลย                                                                                                                                                                                         |
+
+
+### Output count 5 to 0 
+- input
+  ``` Assembly
+  lw       0        1        five     load reg1 with 5 (uses symbolic address)
+                lw       1        2        3        load reg2 with -1 (uses numeric address)
+      start     add      1        2        1        decrement reg1
+                beq      0        1        2        goto end of program when reg1 == 0
+                beq      0        0        start    go back to the beginning of the loop
+                noop
+      done      halt                                end of program
+      five      .fill    5
+      neg1      .fill    -1
+      stAddr    .fill    start                      will contain the address of start
+  ```
+- output
+  ``` Decimal
+      8454151
+      9043971
+      655361
+      16842754
+      16842749
+      29360128
+      25165824
+      5
+      -1
+      2
+  ```
