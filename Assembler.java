@@ -216,7 +216,7 @@ public class Assembler {
         } else {
             offsetBinary = toBinaryString(-offset);
             offsetBinary = addZeroBits(offsetBinary,16);
-            offsetBinary = twosComplement(offsetBinary);
+            offsetBinary = twosCompliment(offsetBinary);
         }
         if(TestTool){
             System.out.println("machineCode + offsetBinary : " + (machineCode + offsetBinary));
@@ -247,7 +247,7 @@ public class Assembler {
             } else {            // value < 0 then need to do 2's compliment!!!
                 binary = toBinaryString(-integer);
                 binary = addZeroBits(binary,32);
-                machineCode = twosComplement(binary);
+                machineCode = twosCompliment(binary);
             }
         } else if(isLabel(value)) { // Label State
             int integer = Label_Mapping.get(value);
@@ -270,7 +270,7 @@ public class Assembler {
         return result.toString();
     }
 
-    public static String twosComplement(String binary) {
+    public static String twosCompliment(String binary) {
         // Invert the bits
         StringBuilder inverted = new StringBuilder();
         for (char bit : binary.toCharArray()) {
@@ -373,7 +373,7 @@ public class Assembler {
                 String binaryString = absoluteBigInt.toString(2);
 
                 // Use twosComplement to get the binary representation of the absolute value
-                binary = twosComplement(addZeroBits(binaryString, 32));
+                binary = twosCompliment(addZeroBits(binaryString, 32));
             } else {
                 // Handle positive numbers
                 BigInteger positiveBigInt = new BigInteger(decimal);

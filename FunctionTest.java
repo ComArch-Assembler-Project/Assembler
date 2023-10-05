@@ -32,13 +32,13 @@ public class FunctionTest {
     @Test
     public void twoComplimentTest(){
         // 1 to -1
-        Assert.assertEquals("1111111111111111", Assembler.twosComplement("0000000000000001"));
+        Assert.assertEquals("1111111111111111", Assembler.twosCompliment("0000000000000001"));
         // 10 to -10
-        Assert.assertEquals("1111111111110110", Assembler.twosComplement("0000000000001010"));
+        Assert.assertEquals("1111111111110110", Assembler.twosCompliment("0000000000001010"));
 
         // reverse!!!
         // -1 to 1
-        Assert.assertEquals("0000000000000001", Assembler.twosComplement("1111111111111111"));
+        Assert.assertEquals("0000000000000001", Assembler.twosCompliment("1111111111111111"));
     }
 
     @Test
