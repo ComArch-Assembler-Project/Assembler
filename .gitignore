@@ -2,3 +2,8 @@
 /shelf/
 /.idea/workspace.xml
 /out
+AssemblerTokenizer.class
+Assembler.class
+FileOperator.class
+main.class
+Tokenizer.class
