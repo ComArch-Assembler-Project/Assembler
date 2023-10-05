@@ -40,7 +40,8 @@
 ### Parser-Assembler
 
 parseLineToData() -> parse line by line to Data-list
-The regular expression `^-\d+(\.\d+)?$` is designed to match numeric values, both integer and decimal, with an optional negative sign.
+
+- The regular expression `^-\d+(\.\d+)?$` is designed to match numeric values, both integer and decimal, with an optional negative sign.
 
 - `^`: Matches the start of a string.
 - `-?`: Matches an optional minus sign (`-`). The `?` means zero or one occurrence.
