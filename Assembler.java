@@ -6,7 +6,7 @@ import static java.lang.Integer.toBinaryString;
 public class Assembler {
 
     /** Important parameters **/
-    boolean TestTool = false;
+    boolean TestTool = true;
     private static final String zero_bit = "0000000";   // 31-25 (7 bit) must be 0 bit
     private static final Pattern number_pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
     private final AssemblerTokenizer tkz;
@@ -16,7 +16,7 @@ public class Assembler {
     private final List<String> machineCodes = new ArrayList<>();
     private String machineCode = zero_bit;              // add zero-bit first before load
     private int curr_Line = 0;
-    private List<String> Data_list = new ArrayList<>(); // to collect parsed line
+    public List<String> Data_list = new ArrayList<>(); // to collect parsed line
     private final Map<String, Integer> Label_Mapping = new HashMap<>();
 
     private static final Map<String , String> Opcode_mapping = Map.of(
@@ -54,7 +54,7 @@ public class Assembler {
     );
 
     /** Parser **/
-    private void parseLineToData(){
+    void parseLineToData(){
         Data_list = new ArrayList<>();
         while (tkz.hasNext()) {         // parse to data until newline
             String token = tkz.next();
@@ -81,9 +81,13 @@ public class Assembler {
         return(compute());          // get MachineCode by instruction-type
     }
 
-    private ArrayList<String> compute() {
+    public void reset(){
         tkz.repositionToStart();    // reposition to start token!!!
         curr_Line = 0;
+    }
+
+    private ArrayList<String> compute() {
+        reset();
         parseLineToData();
         while (tkz.hasNext()) {
             int index = 0;
@@ -332,15 +336,6 @@ public class Assembler {
         return !Label_Mapping.containsKey(label) && label.length() <= 6 ;
     }
 
-    /*
-        exit(i)
-        i = 1 -> error
-        i = 0 -> complete
-     */
-    public void exit(int i){
-        System.out.println("exit (" + i + ") : ERROR!!!");
-        System.exit(i);
-    }
 
     public static List<String> binaryToDecimal(List<String> binaryList) {
         List<String> decimalList = new ArrayList<>();
@@ -364,5 +359,43 @@ public class Assembler {
         }
 
         return decimalList;
+    }
+
+    public static List<String> decimalToBinary(List<String> decimalList) {
+        List<String> binaryStrings = new ArrayList<>();
+
+        for (String decimal : decimalList) {
+            String binary;
+
+            if (decimal.startsWith("-")) {
+                String absoluteValue = decimal.substring(1);    // Remove the minus sign
+                BigInteger absoluteBigInt = new BigInteger(absoluteValue);
+                String binaryString = absoluteBigInt.toString(2);
+
+                // Use twosComplement to get the binary representation of the absolute value
+                binary = twosComplement(addZeroBits(binaryString, 32));
+            } else {
+                // Handle positive numbers
+                BigInteger positiveBigInt = new BigInteger(decimal);
+                binary = positiveBigInt.toString(2);
+
+                // Add leading zeros using addZeroBits function
+                binary = addZeroBits(binary, 32);
+            }
+
+            binaryStrings.add(binary);
+        }
+
+        return binaryStrings;
+    }
+
+    /*
+        exit(i)
+        i = 1 -> error
+        i = 0 -> complete
+     */
+    public void exit(int i){
+        System.out.println("exit (" + i + ") : ERROR!!!");
+        System.exit(i);
     }
 }

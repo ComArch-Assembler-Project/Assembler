@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class main {
 
-    static String INPUT_DIR = "Input/";
+    static String Input_path = "Input/";
     static String fileExtension = ".s";
-    static String OUTPUT_DIR = "Output/";
+    static String Output_path = "Output/";
 
     /**
      *  outExtension[0] for file.bin
@@ -39,18 +39,18 @@ public class main {
     }
     public static void compute(String File){
         Assembler Encoder = new Assembler(
-                FileOperator.FileToString(INPUT_DIR + File + fileExtension)
+                FileOperator.FileToString(Input_path + File + fileExtension)
         );
 
         List<String> binaryCodes = Encoder.computeToMachineCode();
         List<String> decimalCodes = Assembler.binaryToDecimal(binaryCodes);
 
-        FileOperator.StringToFile(OUTPUT_DIR + File + outExtension[0], binaryCodes);
-        FileOperator.StringToFile(OUTPUT_DIR + File + outExtension[1],  decimalCodes);
+        FileOperator.StringToFile(Output_path + File + outExtension[0], binaryCodes);
+        FileOperator.StringToFile(Output_path + File + outExtension[1],  decimalCodes);
     }
 
     public static void print(String File , String fileExtension){
-        String Input = OUTPUT_DIR + File + fileExtension;
+        String Input = Output_path + File + fileExtension;
         System.out.println("\n");
         if(Objects.equals(fileExtension, outExtension[1])){
             System.out.println("print in DecimalCode -> " + Input);
@@ -61,7 +61,7 @@ public class main {
     }
 
     public static void printAssembly(String File){
-        String Input = INPUT_DIR + File + fileExtension;
+        String Input = Input_path + File + fileExtension;
         System.out.println("\n");
         System.out.println("Print : " + Input + "\n");
         System.out.println(" " + FileOperator.FileToString(Input));

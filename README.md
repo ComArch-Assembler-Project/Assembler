@@ -40,6 +40,27 @@
 ### Parser-Assembler
 
 parseLineToData() -> parse line by line to Data-list
+The regular expression `^-\d+(\.\d+)?$` is designed to match numeric values, both integer and decimal, with an optional negative sign.
+
+- `^`: Matches the start of a string.
+- `-?`: Matches an optional minus sign (`-`). The `?` means zero or one occurrence.
+- `\d+`: Matches one or more digits. `\d` represents a digit (0-9).
+- `(\.\d+)?`: This is an optional group (`(...)?`) that matches a dot followed by one or more digits. This represents the decimal part of a number.
+  - `\.`: Matches a literal dot.
+  - `\d+`: Matches one or more digits after the dot.
+- `$`: Matches the end of a string.
+
+Here are some examples of strings that would match this regular expression:
+
+- "42"
+- "-3.14"
+- "0.123"
+- "-1000"
+- "1000.00"
+
+
+
+In summary, this regex is useful for validating and extracting numeric values (both integers and decimals) with an optional negative sign.
 
 Format : label instruction field[0] field[1] field[2] comments
 
@@ -76,7 +97,7 @@ Format : label instruction field[0] field[1] field[2] comments
 ### Output count 5 to 0 
 - input
   ``` Assembly
-  lw       0        1        five     load reg1 with 5 (uses symbolic address)
+                lw       0        1        five     load reg1 with 5 (uses symbolic address)
                 lw       1        2        3        load reg2 with -1 (uses numeric address)
       start     add      1        2        1        decrement reg1
                 beq      0        1        2        goto end of program when reg1 == 0
