@@ -46,6 +46,7 @@
 
 ### Parser-Assembler
 - Main Function
+```
   - parseLineToData()       -> parse line by line to Data-list
   - LabelMapping()          -> check and map all Label
   - reset()                 -> reset pointer to start of input
@@ -64,7 +65,7 @@
     - isInteger(String)          -> check input is match regex or not
   - Validation Function
     - LabelValidation(String)    -> check Label is in correct form
-
+```
 
 - The regular expression `^-\d+(\.\d+)?$` is designed to match numeric values, both integer and decimal, with an optional negative sign.
 
