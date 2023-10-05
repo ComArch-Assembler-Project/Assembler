@@ -6,6 +6,13 @@
   - [x] J-type
   - [x] O-type
  
+### Mapping
+  - Instruction type
+  - opcode
+  - Field-numbers
+  - Label (hashMap)
+
+
 > [!IMPORTANT]
 > R-type instructions (add, nand)
 >
@@ -51,7 +58,7 @@ parseLineToData() -> parse line by line to Data-list
   - `\d+`: Matches one or more digits after the dot.
 - `$`: Matches the end of a string.
 
-Here are some examples of strings that would match this regular expression:
+#### Example regular expression
 
 - "42"
 - "-3.14"
@@ -60,10 +67,7 @@ Here are some examples of strings that would match this regular expression:
 - "1000.00"
 
 
-
-In summary, this regex is useful for validating and extracting numeric values (both integers and decimals) with an optional negative sign.
-
-Format : label instruction field[0] field[1] field[2] comments
+### Format : label instruction field[0] field[1] field[2] comments
 
 - R-type : add , nand 
   - regA regB destReg -> (3 fields)
