@@ -52,18 +52,23 @@
   - reset()                 -> reset pointer to start of input
   - computeToMachineCode()  -> compute all step by step (LabelCheck() >> reset() >> compute() >> return(output))
   - compute()               -> read and parse line by line & type by type to binary MachineCodes (List)
-
+```
 - Important Function
+```
   - addZeroBits(field , size)     -> add 0 to field until field.Length = size
   - TwoCompliment(binary)         -> do 2's compliment on binary input
   - binaryToDecimal(List<String>) -> turn binaryList to decimalList
   - decimalToBinary(List<String>) -> turn decimalList to binaryList
   - toInteger(String)             -> turn String to Integer
-  - Check Function
+```
+- Check Function
+```
     - isLabel(String)            -> check input is match LabelMapping or not
     - isInstruction(String)      -> check input is match InstructionMapping or not
     - isInteger(String)          -> check input is match regex or not
-  - Validation Function
+```
+- Validation Function
+```
     - LabelValidation(String)    -> check Label is in correct form
 ```
 
