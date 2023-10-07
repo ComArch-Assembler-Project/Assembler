@@ -5,7 +5,8 @@
   - [x] I-type
   - [x] J-type
   - [x] O-type
- 
+  - [x] F-type
+
 ### Mapping
   - Label (hashMap)
 
