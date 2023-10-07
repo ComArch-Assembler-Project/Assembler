@@ -7,11 +7,7 @@
   - [x] O-type
  
 ### Mapping
-  - Instruction type
-  - opcode
-  - Field-numbers
   - Label (hashMap)
-
 
 > [!IMPORTANT]
 > R-type instructions (add, nand)
@@ -55,6 +51,9 @@
 ```
 - Important Function
 ```
+  - getOpcode(instruction)        -> return opcode that match to Instruction
+  - getType(instruction)          -> return Type that match to Instruction
+  - getNumberOfField(instruction) -> return number of field that match to Instruction
   - addZeroBits(field , size)     -> add 0 to field until field.Length = size
   - TwoCompliment(binary)         -> do 2's compliment on binary input
   - binaryToDecimal(List<String>) -> turn binaryList to decimalList
